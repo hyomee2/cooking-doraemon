@@ -1,13 +1,15 @@
 package com.cooking_doraemon.run;
 
+import com.cooking_doraemon.aggregate.Ingredient;
 import com.cooking_doraemon.service.MartService;
 import com.cooking_doraemon.service.RefrigeratorService;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Application {
 
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
     private static final MartService martService = new MartService();
     private static final RefrigeratorService refrigeratorService = new RefrigeratorService();
 
@@ -17,7 +19,7 @@ public class Application {
         /* 시작 문구 출력 */
         printStartingPhrase();
         /* 유저 설정 */
-        setUser();
+        String userName = setUser();
 
         while (true) {
             System.out.println("\n지금 뭐 하고 싶어?");
@@ -27,10 +29,11 @@ public class Application {
 
             switch (input) {
                 case "1":
-                    martService.getIngredientList();
+                    List<Ingredient> shopGroceries = martService.shopGroceries();
+                    refrigeratorService.addRefrigerator(shopGroceries);
                     break;
                 case "2":
-                    refrigeratorService.getRefrigerators();
+                    refrigeratorService.printRefrigerators();
                     break;
                 case "3": break;
                 case "4": break;
@@ -63,11 +66,13 @@ public class Application {
         System.out.println("안녕? 나는 너랑 함께 할 도라에몽이야~\n");
     }
 
-    private static void setUser() {
+    private static String setUser() {
         System.out.print("너를 뭐라고 불러줄까? : ");
         String userName = scanner.nextLine();
         System.out.println("\n==================================");
         System.out.println(userName + " 안녕?");
+
+        return userName;
     }
 
     private static void printMenu() {
