@@ -17,7 +17,7 @@ public class Application {
         /* 시작 문구 출력 */
         printStartingPhrase();
         /* 유저 설정 */
-//        setUser();
+        setUser();
 
         while (true) {
             System.out.println("\n지금 뭐 하고 싶어?");
