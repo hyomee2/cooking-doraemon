@@ -9,11 +9,20 @@ public class RefrigeratorService {
 
     private final RefrigeratorRepository refrigeratorRepository = new RefrigeratorRepository();
 
-    public void getRefrigerators() {
-        List<Ingredient> refrigerator = refrigeratorRepository.getRefrigerator();
+    public List<Ingredient> getRefrigerators() {
+        return refrigeratorRepository.getRefrigerator();
+    }
 
-        for (Ingredient ingredient : refrigerator) {
-            System.out.println(ingredient);
+    public void printRefrigerators() {
+        List<Ingredient> refrigerators = getRefrigerators();
+
+        System.out.println("냉장고 품목");
+        for (Ingredient ingredient : refrigerators) {
+            System.out.println("물건" + ingredient);
         }
+    }
+
+    public void addRefrigerator(List<Ingredient> ingredients) {
+        ingredients.forEach(refrigeratorRepository::addRefrigerator);
     }
 }

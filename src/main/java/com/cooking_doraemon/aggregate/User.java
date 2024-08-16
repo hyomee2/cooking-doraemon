@@ -8,10 +8,10 @@ public class User implements Serializable {
     private int level;
     private int exp;
 
-    public User(String username, int level, int exp) {
+    public User(String username) {
         this.username = username;
-        this.level = level;
-        this.exp = exp;
+        this.level = 1;
+        this.exp = 0;
     }
 
     public String getUsername() {
