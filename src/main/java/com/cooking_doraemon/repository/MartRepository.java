@@ -47,12 +47,8 @@ public class MartRepository {
                 }
             }
 
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
-//            System.out.println("IOException: " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-//            System.out.println("ClassNotFoundException: " + e.getMessage());
         }
     }
 

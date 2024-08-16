@@ -12,8 +12,14 @@ public class MartService {
     public void getIngredientList() {
         List<Ingredient> ingredientList = martRepository.getIngredientList();
 
+        System.out.println("\n=========================");
+        System.out.println("형미 마트에 온 걸 환영해!\n");
+        System.out.println("아래 물건 중에 사고 싶은 거를 골라봐\n");
+
+        System.out.print("[");
         for (Ingredient ingredient : ingredientList) {
-            System.out.println(ingredient);
+            System.out.print(ingredient.getName() + " ");
         }
+        System.out.print("]\n");
     }
 }

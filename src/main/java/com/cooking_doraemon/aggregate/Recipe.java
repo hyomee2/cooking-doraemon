@@ -1,8 +1,9 @@
 package com.cooking_doraemon.aggregate;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Recipe {
+public class Recipe implements Serializable {
 
     private String name;
     private List<Ingredient> ingredients;

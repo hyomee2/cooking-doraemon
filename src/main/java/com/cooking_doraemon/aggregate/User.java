@@ -1,6 +1,8 @@
 package com.cooking_doraemon.aggregate;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private String username;
     private int level;
