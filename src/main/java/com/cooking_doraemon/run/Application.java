@@ -1,6 +1,7 @@
 package com.cooking_doraemon.run;
 
 import com.cooking_doraemon.service.MartService;
+import com.cooking_doraemon.service.RecipeService;
 import com.cooking_doraemon.service.RefrigeratorService;
 
 import java.util.Scanner;
@@ -10,6 +11,7 @@ public class Application {
     private static Scanner scanner = new Scanner(System.in);
     private static final MartService martService = new MartService();
     private static final RefrigeratorService refrigeratorService = new RefrigeratorService();
+    private static final RecipeService recipeService = new RecipeService();
 
     public static void main(String[] args) {
 
@@ -32,7 +34,9 @@ public class Application {
                 case "2":
                     refrigeratorService.getRefrigerators();
                     break;
-                case "3": break;
+                case "3":
+                    recipeService.findAllRecipeName();
+                    break;
                 case "4": break;
                 case "5": break;
                 case "9":
