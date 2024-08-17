@@ -1,6 +1,7 @@
 package com.cooking_doraemon.run;
 
 import com.cooking_doraemon.aggregate.Ingredient;
+import com.cooking_doraemon.aggregate.User;
 import com.cooking_doraemon.service.MartService;
 import com.cooking_doraemon.service.RefrigeratorService;
 
@@ -20,6 +21,18 @@ public class Application {
         printStartingPhrase();
         /* 유저 설정 */
         String userName = setUser();
+        User user = new User(userName);
+        System.out.println("user = " + user.getCookingLevel());
+        System.out.println("user = " + user.getExp());
+
+        user.setExp(150);
+        System.out.println("user = " + user.getCookingLevel());
+        System.out.println("user = " + user.getExp());
+
+        user.setExp(50);
+        System.out.println("user = " + user.getCookingLevel());
+        System.out.println("user = " + user.getExp());
+
 
         while (true) {
             System.out.println("\n지금 뭐 하고 싶어?");
