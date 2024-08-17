@@ -29,7 +29,5 @@ public class RefrigeratorRepository {
         }
     }
 
-    public void removeRefrigerator(Ingredient ingredient) {
-        refrigerator.remove(ingredient);
-    }
+
 }
