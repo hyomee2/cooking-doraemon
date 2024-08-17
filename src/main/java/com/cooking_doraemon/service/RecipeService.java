@@ -4,10 +4,7 @@ import com.cooking_doraemon.aggregate.Ingredient;
 import com.cooking_doraemon.aggregate.Recipe;
 import com.cooking_doraemon.repository.RecipeRepository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class RecipeService {
     Scanner scanner = new Scanner(System.in);
@@ -39,5 +36,27 @@ public class RecipeService {
         } catch (NullPointerException e) {
             System.out.println("그런 레시피는 없어!");
         }
+    }
+
+    // 레시피에 메뉴 추가하기
+    public void addRecipe() {
+        // 레시피 메뉴의 재료를 담을 list 선언
+        List<Ingredient> ingredients = new ArrayList<>();
+        System.out.print("추가하고 싶은 레시피의 메뉴 이름을 입력해줘!:");
+        String recipeName = scanner.nextLine();
+
+        System.out.print("메뉴를 만들기 위해 필요한 재료를 한 개씩 입력해줘! (다 입력했다면 exit를 입력해줘~): ");
+        while(true) {
+            String requiredIngredient = scanner.nextLine();
+
+            if (requiredIngredient.equals("exit"))
+                break;
+
+            Ingredient ingredient = new Ingredient(requiredIngredient);
+            ingredients.add(ingredient);
+        }
+
+        Map<String, List<Ingredient>> newRecipe = new HashMap<>();
+        recipeRepository.selectAllRecipes().put(recipeName, ingredients);
     }
 }
