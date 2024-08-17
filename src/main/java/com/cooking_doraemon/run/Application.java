@@ -7,6 +7,7 @@ import com.cooking_doraemon.service.RecipeService;
 import com.cooking_doraemon.service.RefrigeratorService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Application {
@@ -44,7 +45,7 @@ public class Application {
 
             switch (input) {
                 case "1":
-                    List<Ingredient> shopGroceries = martService.shopGroceries();
+                    Map<Ingredient, Integer> shopGroceries = martService.shopGroceries();
                     refrigeratorService.addRefrigerator(shopGroceries);
                     break;
                 case "2":
@@ -61,7 +62,6 @@ public class Application {
                 default:
                     System.out.println("\n번호를 잘못 입력했어. 다시 골라줘~\n");
                     break;
-
             }
         }
     }
