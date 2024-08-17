@@ -24,9 +24,7 @@ public class Ingredient implements Serializable {
 
     @Override
     public String toString() {
-        return "Ingredient[" +
-                "name='" + name + '\'' +
-                ']';
+        return name;
     }
 
     @Override

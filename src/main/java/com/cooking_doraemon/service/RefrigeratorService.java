@@ -16,7 +16,9 @@ public class RefrigeratorService {
     public void printRefrigerators() {
         Map<Ingredient, Integer> refrigerators = getRefrigerators();
 
-        System.out.println("냉장고 품목");
+        if (refrigerators.isEmpty()) {
+            System.out.println("냉장고가 비었어 ●︿●");
+        }
 
         for (Map.Entry<Ingredient, Integer> entry : refrigerators.entrySet()) {
             Ingredient ingredient = entry.getKey();
