@@ -3,26 +3,29 @@ package com.cooking_doraemon.service;
 import com.cooking_doraemon.aggregate.Ingredient;
 import com.cooking_doraemon.repository.RefrigeratorRepository;
 
-import java.util.List;
+import java.util.Map;
 
 public class RefrigeratorService {
 
     private final RefrigeratorRepository refrigeratorRepository = new RefrigeratorRepository();
 
-    public List<Ingredient> getRefrigerators() {
+    public Map<Ingredient, Integer> getRefrigerators() {
         return refrigeratorRepository.getRefrigerator();
     }
 
     public void printRefrigerators() {
-        List<Ingredient> refrigerators = getRefrigerators();
+        Map<Ingredient, Integer> refrigerators = getRefrigerators();
 
         System.out.println("냉장고 품목");
-        for (Ingredient ingredient : refrigerators) {
-            System.out.println("물건" + ingredient);
+
+        for (Map.Entry<Ingredient, Integer> entry : refrigerators.entrySet()) {
+            Ingredient ingredient = entry.getKey();
+            Integer quantity = entry.getValue();
+            System.out.println("재료: " + ingredient + ", 수량: " + quantity);
         }
     }
 
-    public void addRefrigerator(List<Ingredient> ingredients) {
-        ingredients.forEach(refrigeratorRepository::addRefrigerator);
+    public void addRefrigerator(Map<Ingredient, Integer> ingredients) {
+        ingredients.forEach((ingredient, quantity) -> refrigeratorRepository.addRefrigerator(Map.of(ingredient, quantity)));
     }
 }
