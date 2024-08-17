@@ -45,7 +45,7 @@ public class Application {
                 case "4":
                     String menu = cookingService.chooseMenu();
                     if(cookingService.cookingCheck(menu)) {
-                        user.setExp(user.getExp() + cookingService.cooking(menu));
+                        user.setExp(cookingService.cooking(menu));
                     }
                     break;
                 case "5": break;
