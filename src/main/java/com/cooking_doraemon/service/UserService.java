@@ -7,7 +7,7 @@ public class UserService {
     public void getUser(User user) {
 
         System.out.println("닉네임 : " + user.getUsername());
-        System.out.println("레벨 : " + user.getCookingLevel());
+        System.out.println("레벨 : " + user.getCookingLevel().getDesc());
         System.out.println("숙련도 : " + user.getExp());
     }
 }

@@ -5,6 +5,7 @@ import com.cooking_doraemon.aggregate.User;
 import com.cooking_doraemon.service.MartService;
 import com.cooking_doraemon.service.RecipeService;
 import com.cooking_doraemon.service.RefrigeratorService;
+import com.cooking_doraemon.service.UserService;
 
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ public class Application {
     private static final MartService martService = new MartService();
     private static final RefrigeratorService refrigeratorService = new RefrigeratorService();
     private static final RecipeService recipeService = new RecipeService();
+    private static final UserService userService = new UserService();
 
     public static void main(String[] args) {
 
@@ -25,17 +27,6 @@ public class Application {
         /* 유저 설정 */
         String userName = setUser();
         User user = new User(userName);
-        System.out.println("user = " + user.getCookingLevel());
-        System.out.println("user = " + user.getExp());
-
-        user.setExp(150);
-        System.out.println("user = " + user.getCookingLevel());
-        System.out.println("user = " + user.getExp());
-
-        user.setExp(50);
-        System.out.println("user = " + user.getCookingLevel());
-        System.out.println("user = " + user.getExp());
-
 
         while (true) {
             System.out.println("\n지금 뭐 하고 싶어?");
@@ -55,7 +46,9 @@ public class Application {
                     recipeService.findAllRecipeName();
                     break;
                 case "4": break;
-                case "5": break;
+                case "5":
+                    userService.getUser(user);
+                    break;
                 case "9":
                     System.out.println("\n" + "다음에 또 만나자~");
                     return;
