@@ -30,13 +30,14 @@ public class RecipeService {
         findRecipeByRecipeName(recipeName);
     }
 
-
     public void findRecipeByRecipeName(String Name) {
         Map<String, List<Ingredient>> findRecipes = recipeRepository.selectAllRecipes();
-        List<Ingredient> ingredients = findRecipes.get(Name);
-
-        for (Ingredient ingredient : ingredients)
-            System.out.print(ingredient.getName() + " ");
+        try {
+            List<Ingredient> ingredients = findRecipes.get(Name);
+            for (Ingredient ingredient : ingredients)
+                System.out.print(ingredient.getName() + " ");
+        } catch (NullPointerException e) {
+            System.out.println("그런 레시피는 없어!");
+        }
     }
-
 }
