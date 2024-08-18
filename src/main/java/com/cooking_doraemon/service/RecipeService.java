@@ -20,6 +20,7 @@ public class RecipeService {
         System.out.print("레시피를 더 자세히 보고 싶은 음식 이름을 입력해줘!: ");
         String recipeName = scanner.nextLine();
         findRecipeByRecipeName(recipeName);
+        System.out.println("\n==============================\n");
     }
 
     public static void showMenusInRecipe() {

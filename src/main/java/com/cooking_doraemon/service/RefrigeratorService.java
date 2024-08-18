@@ -35,7 +35,7 @@ public class RefrigeratorService {
     }
 
     public void removeRefrigerator() {
-        System.out.println("버리고 싶은 재료를 입력해줘!: ");
+        System.out.print("버리고 싶은 재료를 입력해줘!: ");
         String removeIngredient = scanner.nextLine();
         boolean containIngredient = false;
 
