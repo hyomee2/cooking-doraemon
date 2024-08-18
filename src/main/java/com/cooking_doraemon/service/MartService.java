@@ -7,7 +7,11 @@ import java.util.*;
 
 public class MartService {
 
-    private final MartRepository martRepository = new MartRepository();
+    private final MartRepository martRepository;
+
+    public MartService(MartRepository martRepository) {
+        this.martRepository = martRepository;
+    }
 
     public Map<Ingredient, Integer> shopGroceries() {
         greetingMart();
