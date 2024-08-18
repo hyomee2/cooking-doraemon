@@ -21,22 +21,26 @@ public class MartService {
 
     private void greetingMart() {
         System.out.println("\n=========================");
-        System.out.println("형미 마트에 온 걸 환영해!\n");
-        System.out.println("아래 물건 중에 사고 싶은 거를 골라봐\n");
+        System.out.println("\n형미 마트에 온 걸 환영해!");
+        System.out.println("\n아래 물건 중에 사고 싶은 거를 골라봐");
     }
 
     private Map<Ingredient, Integer> subMartMenu() {
         Scanner scanner = new Scanner(System.in);
+
         List<Ingredient> ingredientList = getIngredientList();
         Map<Ingredient, Integer> cart = new HashMap<>();
 
         while (true) {
-            System.out.print("물건이랑 개수를 입력해줘 선택(물건은 하나씩 골라줘~ / 나가고 싶으면 exit) : ");
+            System.out.print("물건이랑 개수를 하나씩 입력해줘(ex. 바나나 10) / 나가고 싶으면 exit를 입력해줘! : ");
             String input = scanner.next();
+
             if (input.equals("exit")) {
-                System.out.println("잘가~ 다음에 또 와!");
+                System.out.println("\n\n잘가~ 다음에 또 와!");
+                System.out.println("\n==============================");
                 break;
             }
+
             Ingredient newIngredient = new Ingredient(input);
 
             int quantity = scanner.nextInt();
@@ -59,7 +63,7 @@ public class MartService {
         for (Ingredient ingredient : ingredientList) {
             System.out.print(ingredient.getName() + " ");
         }
-        System.out.print("]\n");
+        System.out.println("]\n");
     }
 
     private void checkCart(Map<Ingredient, Integer> cart, List<Ingredient> ingredientList, Ingredient newIngredient, int quantity) {

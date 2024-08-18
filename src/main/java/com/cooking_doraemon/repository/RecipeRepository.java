@@ -65,6 +65,7 @@ public class RecipeRepository {
                     List<Ingredient> ingredients = (List <Ingredient>) ois.readObject();
                     recipeList.put(recipe, ingredients);
                 } catch (EOFException e) {
+                    //System.out.println("레시피 정보를 모두 로딩하였습니다.");
                     break;
                 }
             }

@@ -23,11 +23,13 @@ public class CookingService {
     }
 
     public String chooseMenu() {
-        System.out.println("너가 만들 수 있는 음식들이야!");
-        recipeService.showMenusInRecipe();
+        System.out.println("\n==============================");
+        System.out.println("\n너가 만들 수 있는 음식들이야!\n");
+
+        RecipeService.showMenusInRecipe();
 
         System.out.println("\n==============================");
-        System.out.println("어떤 음식을 만들고 싶어?: ");
+        System.out.print("\n어떤 음식을 만들고 싶어?: ");
 
         return scanner.nextLine();
     }
@@ -51,7 +53,8 @@ public class CookingService {
             result = true;
         } else {
             result = false;
-            System.out.println("레시피북에 없는 메뉴야!");
+            System.out.println("\n레시피북에 없는 메뉴야!");
+            System.out.println("\n==============================");
         }
         return result;
     }
@@ -59,22 +62,23 @@ public class CookingService {
     private boolean checkIngredientsForCooking(String menuName) {
         boolean checkIngredients = true;
 
-        List<Ingredient> ingredients = recipeRepository.getRecipeList().get(menuName);
-
+        List<Ingredient> ingredients = RecipeRepository.getRecipeList().get(menuName);
+        System.out.println();
         for (Ingredient ingredient : ingredients) {
             if (!(refrigeratorRepository.getRefrigerator().containsKey(ingredient))) {
                 checkIngredients = false;
                 System.out.println("냉장고에 " + ingredient.getName() + " 부족해..");
             }
         }
+        System.out.println("\n==============================");
 
         return checkIngredients;
     }
 
     public int cooking(String chosenMenu) {
-        System.out.println("요리를 시작하자!");
+        System.out.println("\n요리를 시작하자!");
         System.out.println("\n...");
-        System.out.println("요리중");
+        System.out.println("\n요리중");
         System.out.println("\n...");
         refrigeratorRepository.useIngredient(chosenMenu);
 
@@ -82,14 +86,16 @@ public class CookingService {
         // 요리의 성공/실패 랜덤값
         boolean cookingSuccess = random.nextBoolean();
         if (cookingSuccess) {
-            System.out.println("\n" + chosenMenu + " 만들기 성공~!");
+            System.out.println("\n" + chosenMenu + " 만들기 성공~!\n");
             // 숙련도 랜덤값
             int gainedExp = random.nextInt(10) + 70;
             System.out.println(gainedExp + "만큼의 숙련도를 획득했어!");
+            System.out.println("\n==============================");
 
             return gainedExp;
         } else {
-            System.out.println("요리를 실패했어...");
+            System.out.println("\n요리를 실패했어 (っ◞‸◟c)");
+            System.out.println("\n==============================");
             return 0;
         }
     }

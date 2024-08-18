@@ -22,14 +22,22 @@ public class RefrigeratorService {
     public void printRefrigerators() {
         Map<Ingredient, Integer> refrigerators = getRefrigerators();
 
-        if (refrigerators.isEmpty()) {
-            System.out.println("냉장고가 비었어 ●︿●");
-        }
+        System.out.println("\n==============================");
 
-        for (Map.Entry<Ingredient, Integer> entry : refrigerators.entrySet()) {
-            Ingredient ingredient = entry.getKey();
-            Integer quantity = entry.getValue();
-            System.out.println("재료: " + ingredient + ", 수량: " + quantity);
+        if (refrigerators.isEmpty()) {
+            System.out.println("\n냉장고가 비었어 ●︿●");
+            System.out.println("\n==============================");
+        }
+        else {
+            System.out.println("\n냉장고에 들어있는 재료야!\n");
+
+            for (Map.Entry<Ingredient, Integer> entry : refrigerators.entrySet()) {
+                Ingredient ingredient = entry.getKey();
+                Integer quantity = entry.getValue();
+                System.out.println(ingredient + ", 수량: " + quantity);
+            }
+
+            System.out.println("\n==============================");
         }
     }
 
@@ -38,19 +46,34 @@ public class RefrigeratorService {
     }
 
     public void removeRefrigerator() {
-        System.out.println("버리고 싶은 재료를 입력해줘!: ");
-        String removeIngredient = scanner.nextLine();
-        boolean containIngredient = false;
 
-        for (Ingredient ingredient : refrigeratorRepository.getRefrigerator().keySet()) {
-            if (ingredient.getName().equals(removeIngredient)) {
-                getRefrigerators().remove(ingredient);
-                containIngredient = true;
+        while (true) {
+            printRefrigerators();
+
+            if (!(getRefrigerators().isEmpty())) {
+                System.out.print("\n버리고 싶은 재료를 입력해줘!(정리를 그만하려면 exit를 입력해!): ");
+                String removeIngredient = scanner.nextLine();
+                boolean containIngredient = false;
+
+                for (Ingredient ingredient : refrigeratorRepository.getRefrigerator().keySet()) {
+                    if (ingredient.getName().equals(removeIngredient)) {
+                        getRefrigerators().remove(ingredient);
+                        containIngredient = true;
+                        break;
+                    }
+                }
+
+                if (removeIngredient.equals("exit")) {
+                    System.out.println("\n==============================");
+                    break;
+                }
+
+                if (!containIngredient)
+                    System.out.println("냉장고에 그런 재료는 없어!");
+            }
+            else {
                 break;
             }
         }
-
-        if (!containIngredient)
-            System.out.println("냉장고에 그런 재료는 없어!");
     }
 }
