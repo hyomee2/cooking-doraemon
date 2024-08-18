@@ -4,7 +4,6 @@ import com.cooking_doraemon.aggregate.Ingredient;
 import com.cooking_doraemon.aggregate.User;
 import com.cooking_doraemon.service.*;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -17,7 +16,6 @@ public class Application {
     private static final CookingService cookingService = new CookingService();
 
     public static void main(String[] args) {
-
 
         /* 시작 문구 출력 */
         printStartingPhrase();
