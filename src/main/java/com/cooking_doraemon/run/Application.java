@@ -40,14 +40,14 @@ public class Application {
                 case "2":
                     refrigeratorService.printRefrigerators();
                     break;
-                case "3":
-                    refrigeratorService.removeRefrigerator();
-                    break;
                 case "4":
                     recipeService.findAllRecipeName();
                     break;
-                case "5": break;
+                case "5":
+                    recipeService.addRecipe();
+                    break;
                 case "6": break;
+                case "7": break;
                 case "9":
                     System.out.println("\n" + "다음에 또 만나자~");
                     return;
@@ -88,10 +88,10 @@ public class Application {
         System.out.println("====================================");
         System.out.println("1. 마트 가기");
         System.out.println("2. 냉장고 속 재료 보기");
-        System.out.println("3. 냉장고 정리하기");
         System.out.println("4. 레시피 보기");
-        System.out.println("5. 요리하기");
-        System.out.println("6. 내 프로필 보기");
+        System.out.println("5. 레시피 추가하기");
+        System.out.println("6. 요리하기");
+        System.out.println("7. 내 프로필 보기");
         System.out.println("9. 종료하기");
         System.out.println("====================================");
     }
