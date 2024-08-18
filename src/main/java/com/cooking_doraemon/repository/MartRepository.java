@@ -42,7 +42,6 @@ public class MartRepository {
                 try {
                     ingredientList.add((Ingredient) ois.readObject());
                 } catch (EOFException e) {
-                    System.out.println("마트 상품 리스트를 모두 로딩하였습니다.");
                     break;
                 }
             }

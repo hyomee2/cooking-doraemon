@@ -60,12 +60,14 @@ public class RecipeRepository {
     private void loadRecipes(File recipeFile) {
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(recipeFile))) {
             while(true) {
-                String recipe = (String) ois.readObject();
-                List<Ingredient> ingredients = (List<Ingredient>) ois.readObject();
-                recipeList.put(recipe, ingredients);
+                try {
+                    String recipe = (String) ois.readObject();
+                    List<Ingredient> ingredients = (List <Ingredient>) ois.readObject();
+                    recipeList.put(recipe, ingredients);
+                } catch (EOFException e) {
+                    break;
+                }
             }
-        } catch(EOFException e) {
-            System.out.println("레시피 정보를 모두 로딩하였습니다.");
         }
         catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
