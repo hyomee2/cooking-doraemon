@@ -21,7 +21,7 @@ public class MartService {
 
     private void greetingMart() {
         System.out.println("\n=========================");
-        System.out.println("\n형미 마트에 온 걸 환영해!");
+        System.out.println("\n도라에몽 마트에 온 걸 환영해!");
         System.out.println("\n아래 물건 중에 사고 싶은 거를 골라봐");
     }
 
