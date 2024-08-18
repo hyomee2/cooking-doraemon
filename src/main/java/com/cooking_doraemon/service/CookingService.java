@@ -26,7 +26,7 @@ public class CookingService {
         System.out.println("\n==============================");
         System.out.println("\n너가 만들 수 있는 음식들이야!\n");
 
-        RecipeService.showMenusInRecipe();
+        recipeService.showMenusInRecipe();
 
         System.out.println("\n==============================");
         System.out.print("\n어떤 음식을 만들고 싶어?: ");
@@ -62,7 +62,7 @@ public class CookingService {
     private boolean checkIngredientsForCooking(String menuName) {
         boolean checkIngredients = true;
 
-        List<Ingredient> ingredients = RecipeRepository.getRecipeList().get(menuName);
+        List<Ingredient> ingredients = recipeRepository.getRecipeList().get(menuName);
         System.out.println();
         for (Ingredient ingredient : ingredients) {
             if (!(refrigeratorRepository.getRefrigerator().containsKey(ingredient))) {
@@ -88,7 +88,7 @@ public class CookingService {
         if (cookingSuccess) {
             System.out.println("\n" + chosenMenu + " 만들기 성공~!\n");
             // 숙련도 랜덤값
-            int gainedExp = random.nextInt(10) + 70;
+            int gainedExp = random.nextInt(10) + 300;
             System.out.println(gainedExp + "만큼의 숙련도를 획득했어!");
             System.out.println("\n==============================");
 
