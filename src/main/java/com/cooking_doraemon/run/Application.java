@@ -25,9 +25,9 @@ public class Application {
         User user = new User(userName);
 
         while (true) {
-            System.out.println("\n지금 뭐 하고 싶어?");
+            System.out.println("\n지금 뭐 하고 싶어?\n");
             printMenu();
-            System.out.print("아래 번호를 입력해줘~~~ : ");
+            System.out.print("\n번호를 입력해줘~~~ : ");
             String input = scanner.nextLine();
 
             switch (input) {
@@ -86,14 +86,13 @@ public class Application {
     private static String setUser() {
         System.out.print("너를 뭐라고 불러줄까? : ");
         String userName = scanner.nextLine();
-        System.out.println("\n==================================");
+        System.out.println("\n==================================\n");
         System.out.println(userName + " 안녕?");
 
         return userName;
     }
 
     private static void printMenu() {
-        System.out.println("====================================");
         System.out.println("1. 마트 가기");
         System.out.println("2. 냉장고 속 재료 보기");
         System.out.println("3. 냉장고 정리하기");
@@ -102,6 +101,5 @@ public class Application {
         System.out.println("6. 요리하기");
         System.out.println("7. 내 프로필 보기");
         System.out.println("9. 종료하기");
-        System.out.println("====================================");
     }
 }

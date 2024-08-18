@@ -65,7 +65,7 @@ public class RecipeRepository {
                 recipeList.put(recipe, ingredients);
             }
         } catch(EOFException e) {
-            System.out.println("레시피 정보를 모두 로딩하였습니다.");
+            //System.out.println("레시피 정보를 모두 로딩하였습니다.");
         }
         catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
