@@ -31,10 +31,6 @@ public class User implements Serializable {
         return cookingLevel;
     }
 
-    public void setCookingLevel(CookingLevel cookingLevel) {
-        this.cookingLevel = cookingLevel;
-    }
-
     private void checkLevelUp() {
         while (exp >= cookingLevel.getRequiredExp()) {
             exp -= cookingLevel.getRequiredExp();
