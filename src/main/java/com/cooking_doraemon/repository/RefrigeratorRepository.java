@@ -6,13 +6,13 @@ import java.util.*;
 
 public class RefrigeratorRepository {
     
-    private final Map<Ingredient, Integer> refrigerator;
+    private static Map<Ingredient, Integer> refrigerator;
 
     public RefrigeratorRepository() {
         refrigerator = new HashMap<>();
     }
 
-    public  Map<Ingredient, Integer>  getRefrigerator() {
+    public static Map<Ingredient, Integer>  getRefrigerator() {
         return refrigerator;
     }
 
@@ -28,6 +28,4 @@ public class RefrigeratorRepository {
             }
         }
     }
-
-
 }
