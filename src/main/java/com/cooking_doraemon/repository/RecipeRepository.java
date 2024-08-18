@@ -9,8 +9,8 @@ import java.util.*;
 public class RecipeRepository {
     //
     private static final Map<String, List<Ingredient>> recipeList = new HashMap<>();
-    List<Ingredient> ingredients = new ArrayList<>();
     private static final String RECIPE_FILE_PATH = "src/main/java/com/cooking_doraemon/db/recipeDB.dat";
+    List<Ingredient> ingredients = new ArrayList<>();
 
     public RecipeRepository() {
         File recipeFile = new File(RECIPE_FILE_PATH);
@@ -53,7 +53,7 @@ public class RecipeRepository {
         loadRecipes(recipeFile);
     }
 
-    public static Map<String, List<Ingredient>> getRecipeList() {
+    public Map<String, List<Ingredient>> getRecipeList() {
         return recipeList;
     }
 

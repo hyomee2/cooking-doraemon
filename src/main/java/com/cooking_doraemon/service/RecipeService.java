@@ -6,9 +6,12 @@ import com.cooking_doraemon.repository.RecipeRepository;
 import java.util.*;
 
 public class RecipeService {
-    private static RecipeService instance;
-    Scanner scanner = new Scanner(System.in);
-    private static final RecipeRepository recipeRepository = new RecipeRepository();
+    private final Scanner scanner = new Scanner(System.in);
+    private final RecipeRepository recipeRepository;
+
+    public RecipeService(RecipeRepository recipeRepository) {
+        this.recipeRepository = recipeRepository;
+    }
 
     // 레시피에 저장된 음식 목록 보기
     public void findAllRecipeName() {
@@ -22,8 +25,8 @@ public class RecipeService {
         findRecipeByRecipeName(recipeName);
     }
 
-    public static void showMenusInRecipe() {
-        Map<String, List<Ingredient>> findRecipes = RecipeRepository.getRecipeList();
+    public void showMenusInRecipe() {
+        Map<String, List<Ingredient>> findRecipes = recipeRepository.getRecipeList();
 
         for (Map.Entry<String, List<Ingredient>> entry : findRecipes.entrySet()) {
             String recipeName = entry.getKey();
@@ -31,8 +34,8 @@ public class RecipeService {
         }
     }
 
-    public void findRecipeByRecipeName(String Name) {
-        Map<String, List<Ingredient>> findRecipes = RecipeRepository.getRecipeList();
+    private void findRecipeByRecipeName(String Name) {
+        Map<String, List<Ingredient>> findRecipes = recipeRepository.getRecipeList();
         try {
             List<Ingredient> ingredients = findRecipes.get(Name);
             for (Ingredient ingredient : ingredients)
@@ -50,7 +53,7 @@ public class RecipeService {
         String recipeName = scanner.nextLine();
 
         System.out.print("메뉴를 만들기 위해 필요한 재료를 한 개씩 입력해줘! (다 입력했다면 exit를 입력해줘~): ");
-        while(true) {
+        while (true) {
             String requiredIngredient = scanner.nextLine();
 
             if (requiredIngredient.equals("exit"))
@@ -61,7 +64,6 @@ public class RecipeService {
         }
 
         Map<String, List<Ingredient>> newRecipe = new HashMap<>();
-//        recipeRepository.selectAllRecipes().put(recipeName, ingredients);
-        RecipeRepository.getRecipeList().put(recipeName, ingredients);
+        recipeRepository.getRecipeList().put(recipeName, ingredients);
     }
 }

@@ -8,11 +8,14 @@ import java.util.Scanner;
 
 public class RefrigeratorService {
 
-    Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
+    private final RefrigeratorRepository refrigeratorRepository;
 
-    private final RefrigeratorRepository refrigeratorRepository = new RefrigeratorRepository();
+    public RefrigeratorService(RefrigeratorRepository refrigeratorRepository) {
+        this.refrigeratorRepository = refrigeratorRepository;
+    }
 
-    public Map<Ingredient, Integer> getRefrigerators() {
+    private Map<Ingredient, Integer> getRefrigerators() {
         return refrigeratorRepository.getRefrigerator();
     }
 
