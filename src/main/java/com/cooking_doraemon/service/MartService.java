@@ -41,8 +41,10 @@ public class MartService {
 
             int quantity = scanner.nextInt();
 
-            Map<Ingredient, Integer> newIngredientMap = new HashMap<>();
-            newIngredientMap.put(newIngredient, quantity);
+            if (quantity <= 0) {
+                System.out.println("개수 입력이 잘못되었어~");
+                continue;
+            }
 
             if (ingredientList.contains(newIngredient)) {
                 cart.put(newIngredient, quantity);
