@@ -15,6 +15,7 @@ public class Application {
     private static final RefrigeratorService refrigeratorService = new RefrigeratorService();
     private static final RecipeService recipeService = new RecipeService();
     private static final CookingService cookingService = new CookingService();
+    private static final UserService userService = new UserService();
 
     public static void main(String[] args) {
 
@@ -48,7 +49,9 @@ public class Application {
                         user.setExp(cookingService.cooking(menu));
                     }
                     break;
-                case "5": break;
+                case "5":
+                    userService.getUser(user);
+                    break;
                 case "9":
                     System.out.println("\n" + "다음에 또 만나자~");
                     return;
