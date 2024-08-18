@@ -49,7 +49,7 @@ public class Application {
                     break;
                 case "6":
                     String menu = cookingService.chooseMenu();
-                    if(cookingService.cookingCheck(menu)) {
+                    if (cookingService.cookingCheck(menu)) {
                         user.setExp(cookingService.cooking(menu));
                     }
                     break;

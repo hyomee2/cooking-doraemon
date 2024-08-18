@@ -62,6 +62,7 @@ public class RecipeService {
         }
 
         Map<String, List<Ingredient>> newRecipe = new HashMap<>();
-        recipeRepository.selectAllRecipes().put(recipeName, ingredients);
+//        recipeRepository.selectAllRecipes().put(recipeName, ingredients);
+        RecipeRepository.getRecipeList().put(recipeName, ingredients);
     }
 }
