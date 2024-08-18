@@ -19,6 +19,7 @@ public class RefrigeratorRepository {
     public void addRefrigerator(Map<Ingredient, Integer> cart) {
         for (Map.Entry<Ingredient, Integer> entry : cart.entrySet()) {
             Ingredient ingredient = entry.getKey();
+
             int quantity = entry.getValue();
 
             if (refrigerator.containsKey(ingredient)) {
