@@ -105,6 +105,7 @@ public class Application {
         String userName = scanner.nextLine();
         System.out.println("\n==================================\n");
         System.out.println(userName + " 안녕?");
+        System.out.println("\n==================================\n");
 
         return userName;
     }

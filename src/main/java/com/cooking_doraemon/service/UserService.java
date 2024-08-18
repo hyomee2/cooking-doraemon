@@ -8,7 +8,7 @@ public class UserService {
         System.out.println("\n==============================\n");
         System.out.println("닉네임 : " + user.getUsername());
         System.out.println("레벨 : " + user.getCookingLevel().getDesc());
-        System.out.println("숙련도 : " + user.getExp());
+        System.out.println("숙련도 : " + user.getExp() + "/100");
         System.out.println("\n==============================");
     }
 }
