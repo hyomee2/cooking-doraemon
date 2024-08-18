@@ -2,6 +2,8 @@ package com.cooking_doraemon.run;
 
 import com.cooking_doraemon.aggregate.Ingredient;
 import com.cooking_doraemon.aggregate.User;
+import com.cooking_doraemon.repository.RecipeRepository;
+import com.cooking_doraemon.repository.RefrigeratorRepository;
 import com.cooking_doraemon.service.*;
 
 import java.util.Map;
@@ -10,10 +12,14 @@ import java.util.Scanner;
 public class Application {
 
     private static final Scanner scanner = new Scanner(System.in);
+
+    private static final RecipeRepository recipeRepository = new RecipeRepository();
+    private static final RefrigeratorRepository refrigeratorRepository = new RefrigeratorRepository(recipeRepository);
+
     private static final MartService martService = new MartService();
-    private static final RefrigeratorService refrigeratorService = new RefrigeratorService();
-    private static final RecipeService recipeService = new RecipeService();
-    private static final CookingService cookingService = new CookingService();
+    private static final RefrigeratorService refrigeratorService = new RefrigeratorService(refrigeratorRepository);
+    private static final RecipeService recipeService = new RecipeService(recipeRepository);
+    private static final CookingService cookingService = new CookingService(refrigeratorRepository, recipeRepository, recipeService);
     private static final UserService userService = new UserService();
 
     public static void main(String[] args) {
@@ -49,8 +55,9 @@ public class Application {
                     break;
                 case "6":
                     String menu = cookingService.chooseMenu();
-                    if (cookingService.cookingCheck(menu)) {
-                        user.setExp(cookingService.cooking(menu));
+                    afterCooking(menu, user);
+                    if (levelCheck(user)) {
+                        return;
                     }
                     break;
                 case "7":
@@ -67,19 +74,29 @@ public class Application {
     }
 
     private static void printStartingPhrase() {
+
         System.out.println(
-                        "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠛⠋⠉⠉⠉⠉⠉⣉⠉⠛⠛⠿⣿⣿⣿⣿⣿⣿ \n" +
+                " _____  _____  _____  _   __ _____  _   _  _____  ______  _____ ______   ___   _____ ___  ___ _____  _   _ \n" +
+                "/  __ \\|  _  ||  _  || | / /|_   _|| \\ | ||  __ \\ |  _  \\|  _  || ___ \\ / _ \\ |  ___||  \\/  ||  _  || \\ | |\n" +
+                "| /  \\/| | | || | | || |/ /   | |  |  \\| || |  \\/ | | | || | | || |_/ // /_\\ \\| |__  | .  . || | | ||  \\| |\n" +
+                "| |    | | | || | | ||    \\   | |  | . ` || | __  | | | || | | ||    / |  _  ||  __| | |\\/| || | | || . ` |\n" +
+                "| \\__/\\\\ \\_/ /\\ \\_/ /| |\\  \\ _| |_ | |\\  || |_\\ \\ | |/ / \\ \\_/ /| |\\ \\ | | | || |___ | |  | |\\ \\_/ /| |\\  |\n" +
+                " \\____/ \\___/  \\___/ \\_| \\_/ \\___/ \\_| \\_/ \\____/ |___/   \\___/ \\_| \\_|\\_| |_/\\____/ \\_|  |_/ \\___/ \\_| \\_/\n");
+
+        System.out.println("도라에몽의 요리 생활 시작!\n");
+
+        System.out.println(
+                "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠛⠋⠉⠉⠉⠉⠉⣉⠉⠛⠛⠿⣿⣿⣿⣿⣿⣿ \n" +
                         "⣿⣿⣿⣿⣿⣿⣿⡿⠛⠁⠀⠀⠀⣾⣿⡿⣷⡀⡿⠿⣿⣆⠀⠀⠀⠙⠻⣿⣿⣿⣿ \n" +
                         "⣿⣿⣿⣿⣿⣿⠋⠀⠀⠀⠀⠀⣀⣿⣿⠠⢸⡧⠁⠂⣿⣿⢰⣶⣦⡤⠀⠈⢩⣿⣿ \n" +
                         "⣿⣿⣿⣿⣿⠁⠀⠀⢀⣀⣈⣉⣛⣦⣭⣿⣭⡄⠀⠀⢈⣴⣿⣋⣡⣴⣾⡦⠀⠻⣿ \n" +
                         "⣿⣿⣿⣿⡇⠀⠀⠐⠛⠛⠛⠛⠛⢻⣿⣿⣿⣿⣶⡆⢻⣿⣿⣿⣤⣤⣴⣶⣆⢸ \n" +
                         "⣿⣿⣿⣿⡇⠀⠀⣿⣿⣿⠿⠟⠛⠛⠛⠛⠛⠛⠛⠃⠸⠿⠿⠿⠤⠤⠭⠍⡁⢈ \n" +
-                        "⡿⣛⣭⣭⡃⠀⠀⣉⣡⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⠃⣼ ⣿⣿\n" +
+                        "⡿⣛⣭⣭⡃⠀⠀⣉⣡⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⠃⣼ ⣿⣿ \n" +
                         "⡑⣿⣿⣿⣿⠀⠀⠹⣿⣿⣄⠀⢀⣤⣶⣶⣾⣿⣶⣶⣤⣀⠀⠀⣠⣾⣿⠃⣼ ⣿ \n" +
                         "⣷⣬⣉⠉⠁⠀⠀⠀⠘⢿⣿⣷⣭⡛⠿⠿⢿⣿⣿⠿⠿⢟⣥⣾⣿⡿⢃⣼⣿⣿ \n" +
-                        "⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠈⠛⠛⠛⠛⠒⠒⠒⠒⠒⠚⠛⠛⠛⠋⠠⣾⣿⣿⣿");
+                        "⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠈⠛⠛⠛⠛⠒⠒⠒⠒⠒⠚⠛⠛⠛⠋⠠⣾⣿⣿⣿ \n");
 
-        System.out.println("도라에몽의 요리 생활 시작!\n");
         System.out.println("안녕? 나는 너랑 함께 할 도라에몽이야~\n");
     }
 
@@ -101,5 +118,22 @@ public class Application {
         System.out.println("6. 요리하기");
         System.out.println("7. 내 프로필 보기");
         System.out.println("9. 종료하기");
+    }
+
+    private static void afterCooking(String menu, User user) {
+        if (cookingService.cookingCheck(menu)) {
+            user.setExp(cookingService.cooking(menu));
+        }
+    }
+
+    private static boolean levelCheck(User user) {
+        if (user.getCookingLevel().getLevel() == 4) {
+            System.out.println("====================================");
+            System.out.println("넌 이제 요리의 신이다!\n");
+            System.out.println("모든 것을 깨우쳤으니 하산하거라!");
+            System.out.println("====================================");
+            return true;
+        }
+        return false;
     }
 }

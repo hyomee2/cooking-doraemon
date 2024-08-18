@@ -6,13 +6,14 @@ import java.util.*;
 
 public class RefrigeratorRepository {
 
-    private static Map<Ingredient, Integer> refrigerator;
+    private static final Map<Ingredient, Integer> refrigerator = new HashMap<>();
+    private final RecipeRepository recipeRepository;
 
-    public RefrigeratorRepository() {
-        refrigerator = new HashMap<>();
+    public RefrigeratorRepository(RecipeRepository recipeRepository) {
+        this.recipeRepository = recipeRepository;
     }
 
-    public static Map<Ingredient, Integer> getRefrigerator() {
+    public Map<Ingredient, Integer> getRefrigerator() {
         return refrigerator;
     }
 
@@ -30,12 +31,8 @@ public class RefrigeratorRepository {
         }
     }
 
-    public void removeRefrigerator(Ingredient ingredient) {
-        refrigerator.remove(ingredient);
-    }
-
-    public static void useIngredient(String chosenMenu) {
-        List<Ingredient> ingredients = RecipeRepository.getRecipeList().get(chosenMenu);
+    public void useIngredient(String chosenMenu) {
+        List<Ingredient> ingredients = recipeRepository.getRecipeList().get(chosenMenu);
         for (Ingredient ingredient : ingredients) {
             refrigerator.put(ingredient, refrigerator.get(ingredient) - 1);
             // 개수가 0이 될 경우 refrigerator에서 해당 ingredient remove

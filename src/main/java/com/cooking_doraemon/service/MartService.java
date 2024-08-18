@@ -50,11 +50,7 @@ public class MartService {
                 continue;
             }
 
-            if (ingredientList.contains(newIngredient)) {
-                cart.put(newIngredient, quantity);
-            } else {
-                System.out.println("그런 물건은 없어!");
-            }
+            checkCart(cart, ingredientList, newIngredient, quantity);
         }
 
         return cart;
@@ -68,5 +64,17 @@ public class MartService {
             System.out.print(ingredient.getName() + " ");
         }
         System.out.println("]\n");
+    }
+
+    private void checkCart(Map<Ingredient, Integer> cart, List<Ingredient> ingredientList, Ingredient newIngredient, int quantity) {
+        if (ingredientList.contains(newIngredient)) {
+            if (cart.containsKey(newIngredient)) {
+                cart.put(newIngredient, cart.get(newIngredient) + quantity);
+            } else {
+                cart.put(newIngredient, quantity);
+            }
+        } else {
+            System.out.println("그런 물건은 없어!");
+        }
     }
 }

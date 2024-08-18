@@ -9,8 +9,8 @@ import java.util.*;
 public class RecipeRepository {
     //
     private static final Map<String, List<Ingredient>> recipeList = new HashMap<>();
-    List<Ingredient> ingredients = new ArrayList<>();
     private static final String RECIPE_FILE_PATH = "src/main/java/com/cooking_doraemon/db/recipeDB.dat";
+    List<Ingredient> ingredients = new ArrayList<>();
 
     public RecipeRepository() {
         File recipeFile = new File(RECIPE_FILE_PATH);
@@ -53,19 +53,22 @@ public class RecipeRepository {
         loadRecipes(recipeFile);
     }
 
-    public static Map<String, List<Ingredient>> getRecipeList() {
+    public Map<String, List<Ingredient>> getRecipeList() {
         return recipeList;
     }
 
     private void loadRecipes(File recipeFile) {
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(recipeFile))) {
             while(true) {
-                String recipe = (String) ois.readObject();
-                List<Ingredient> ingredients = (List<Ingredient>) ois.readObject();
-                recipeList.put(recipe, ingredients);
+                try {
+                    String recipe = (String) ois.readObject();
+                    List<Ingredient> ingredients = (List <Ingredient>) ois.readObject();
+                    recipeList.put(recipe, ingredients);
+                } catch (EOFException e) {
+                    //System.out.println("레시피 정보를 모두 로딩하였습니다.");
+                    break;
+                }
             }
-        } catch(EOFException e) {
-            //System.out.println("레시피 정보를 모두 로딩하였습니다.");
         }
         catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);

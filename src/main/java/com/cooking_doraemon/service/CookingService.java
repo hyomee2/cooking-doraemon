@@ -10,8 +10,17 @@ import java.util.Scanner;
 
 public class CookingService {
 
-    Scanner scanner = new Scanner(System.in);
-    Random random = new Random();
+    private final Scanner scanner = new Scanner(System.in);
+    private final Random random = new Random();
+    private final RefrigeratorRepository refrigeratorRepository;
+    private final RecipeRepository recipeRepository;
+    private final RecipeService recipeService;
+
+    public CookingService(RefrigeratorRepository refrigeratorRepository, RecipeRepository recipeRepository, RecipeService recipeService) {
+        this.refrigeratorRepository = refrigeratorRepository;
+        this.recipeRepository = recipeRepository;
+        this.recipeService = recipeService;
+    }
 
     public String chooseMenu() {
         System.out.println("\n==============================");
@@ -32,18 +41,17 @@ public class CookingService {
         // 입력한 메뉴를 만들기 위해 필요한 재료가 냉장고에 있는지 체크
         if (menuInRecipe) {
             return checkIngredientsForCooking(chosenMenu);
-        }
-        else
+        } else {
             return false;
+        }
     }
 
-    public boolean checkMenuInRecipe(String chosenMenu) {
+    private boolean checkMenuInRecipe(String chosenMenu) {
         boolean result;
 
-        if (RecipeRepository.getRecipeList().containsKey(chosenMenu)) {
+        if (recipeRepository.getRecipeList().containsKey(chosenMenu)) {
             result = true;
-        }
-        else {
+        } else {
             result = false;
             System.out.println("\n레시피북에 없는 메뉴야!");
             System.out.println("\n==============================");
@@ -51,13 +59,13 @@ public class CookingService {
         return result;
     }
 
-    public boolean checkIngredientsForCooking(String menuName) {
+    private boolean checkIngredientsForCooking(String menuName) {
         boolean checkIngredients = true;
 
         List<Ingredient> ingredients = RecipeRepository.getRecipeList().get(menuName);
         System.out.println();
         for (Ingredient ingredient : ingredients) {
-            if (!(RefrigeratorRepository.getRefrigerator().containsKey(ingredient))) {
+            if (!(refrigeratorRepository.getRefrigerator().containsKey(ingredient))) {
                 checkIngredients = false;
                 System.out.println("냉장고에 " + ingredient.getName() + " 부족해..");
             }
@@ -72,7 +80,7 @@ public class CookingService {
         System.out.println("\n...");
         System.out.println("\n요리중");
         System.out.println("\n...");
-        RefrigeratorRepository.useIngredient(chosenMenu);
+        refrigeratorRepository.useIngredient(chosenMenu);
 
 
         // 요리의 성공/실패 랜덤값
@@ -80,18 +88,15 @@ public class CookingService {
         if (cookingSuccess) {
             System.out.println("\n" + chosenMenu + " 만들기 성공~!\n");
             // 숙련도 랜덤값
-            int gainedExp = random.nextInt(20) + 10;
+            int gainedExp = random.nextInt(10) + 70;
             System.out.println(gainedExp + "만큼의 숙련도를 획득했어!");
             System.out.println("\n==============================");
 
             return gainedExp;
-        }
-        else {
+        } else {
             System.out.println("\n요리를 실패했어 (っ◞‸◟c)");
             System.out.println("\n==============================");
             return 0;
         }
-
-
     }
 }

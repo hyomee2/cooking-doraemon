@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MartRepository {
 
-    private final List<Ingredient> ingredientList = new ArrayList<Ingredient>();
+    private static final List<Ingredient> ingredientList = new ArrayList<Ingredient>();
     private static final String MART_FILE_PATH = "src/main/java/com/cooking_doraemon/db/martDB.dat";
 
     public MartRepository() {
