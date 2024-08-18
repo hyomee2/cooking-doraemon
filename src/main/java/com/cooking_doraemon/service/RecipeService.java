@@ -1,6 +1,7 @@
 package com.cooking_doraemon.service;
 
 import com.cooking_doraemon.aggregate.Ingredient;
+import com.cooking_doraemon.repository.MartRepository;
 import com.cooking_doraemon.repository.RecipeRepository;
 
 import java.util.*;
@@ -8,9 +9,11 @@ import java.util.*;
 public class RecipeService {
     private final Scanner scanner = new Scanner(System.in);
     private final RecipeRepository recipeRepository;
+    private final MartRepository martRepository;
 
-    public RecipeService(RecipeRepository recipeRepository) {
+    public RecipeService(RecipeRepository recipeRepository, MartRepository martRepository) {
         this.recipeRepository = recipeRepository;
+        this.martRepository = martRepository;
     }
 
     // 레시피에 저장된 음식 목록 보기
@@ -56,10 +59,16 @@ public class RecipeService {
         System.out.print("추가하고 싶은 레시피의 메뉴 이름을 입력해줘!: ");
         String recipeName = scanner.nextLine();
 
+        if (recipeName.equals("exit")) {
+            return;
+        }
+
         System.out.println("\n메뉴를 만들기 위해 필요한 재료를 한 개씩 입력해줘! (다 입력했다면 exit를 입력해줘~): ");
 
+        List<Ingredient> ingredientList = martRepository.getIngredientList();
+
         while(true) {
-            String requiredIngredient = scanner.nextLine();
+            String requiredIngredient = scanner.nextLine().trim();
 
             if (requiredIngredient.equals("exit")) {
                 System.out.println("\n레시피가 추가됐어!");
@@ -67,8 +76,13 @@ public class RecipeService {
                 break;
             }
 
-            Ingredient ingredient = new Ingredient(requiredIngredient);
-            ingredients.add(ingredient);
+            Ingredient newIngredient = new Ingredient(requiredIngredient);
+
+            if (ingredientList.contains(newIngredient)) {
+                ingredients.add(newIngredient);
+            } else {
+                System.out.println("그런 재료는 없어!");
+            }
         }
 
         Map<String, List<Ingredient>> newRecipe = new HashMap<>();
