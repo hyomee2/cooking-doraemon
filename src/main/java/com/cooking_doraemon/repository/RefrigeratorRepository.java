@@ -28,19 +28,4 @@ public class RefrigeratorRepository {
             }
         }
     }
-
-    public void removeRefrigerator(Ingredient ingredient) {
-        refrigerator.remove(ingredient);
-    }
-
-    public static void useIngredient(String chosenMenu) {
-        List<Ingredient> ingredients = RecipeRepository.getRecipeList().get(chosenMenu);
-        for (Ingredient ingredient : ingredients) {
-            refrigerator.put(ingredient, refrigerator.get(ingredient) - 1);
-            // 개수가 0이 될 경우 refrigerator에서 해당 ingredient remove
-            if(refrigerator.get(ingredient) == 0) {
-                refrigerator.remove(ingredient);
-            }
-        }
-    }
 }
