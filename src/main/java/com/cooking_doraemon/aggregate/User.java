@@ -36,6 +36,8 @@ public class User implements Serializable {
             exp -= cookingLevel.getRequiredExp();
             if (cookingLevel.getLevel() < CookingLevel.values().length) {
                 cookingLevel = CookingLevel.getByLevel(cookingLevel.getLevel() + 1);
+                System.out.println("\n" + cookingLevel.getDesc()+ "가 되었어! 축하해 (๑'ᵕ'๑)⸝*");
+                System.out.println("\n==============================");
             } else {
                 break;
             }

@@ -113,8 +113,8 @@ public class Application {
         System.out.println("1. 마트 가기");
         System.out.println("2. 냉장고 속 재료 보기");
         System.out.println("3. 냉장고 정리하기");
-        System.out.println("4. 레시피 보기");
-        System.out.println("5. 레시피 추가하기");
+        System.out.println("4. 레시피북 보기");
+        System.out.println("5. 레시피북에 레시피 추가하기");
         System.out.println("6. 요리하기");
         System.out.println("7. 내 프로필 보기");
         System.out.println("9. 종료하기");
