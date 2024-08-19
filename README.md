@@ -59,3 +59,41 @@
    * 게임이 종료됩니다.
 
 ---
+## 실행화면
+1. 시작
+![시작화면](./src/main/resources/1_시작화면.png)
+   <br></br>
+2. 마트가기
+![시작화면](./src/main/resources/2_마트가기.png)
+   <br></br>
+3. 냉장고 속 재료 보기
+![시작화면](./src/main/resources/3_냉장고속재료보기.png)
+   <br></br>
+4. 냉장고 정리하기
+![시작화면](./src/main/resources/4_냉장고정리하기.png)
+   <br></br>
+5. 레시피 보기
+![시작화면](./src/main/resources/5_레시피보기.png)
+   <br></br>
+6. 레시피 추가하기
+![시작화면](./src/main/resources/6_레시피추가하기_1.png)
+   <br></br>
+![시작화면](./src/main/resources/7_레시피추가하기_2.png)
+   <br></br>
+7. 프로필 보기
+![시작화면](./src/main/resources/8_프로필보기_요리전.png)
+   <br></br>
+![시작화면](./src/main/resources/11_프로필보기_요리후.png)
+   <br></br>
+8. 요리하기
+![시작화면](./src/main/resources/9_요리실패.png)
+   <br></br>
+![시작화면](./src/main/resources/10_요리성공.png)
+   <br></br>
+9. 레벨업
+![시작화면](./src/main/resources/12_레벨업.png)
+   <br></br>
+10. 게임종료
+![시작화면](./src/main/resources/13_게임종료.png)
+
+---
