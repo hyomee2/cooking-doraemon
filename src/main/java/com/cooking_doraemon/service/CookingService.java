@@ -84,7 +84,7 @@ public class CookingService {
 
 
         // 요리의 성공/실패 랜덤값
-        boolean cookingSuccess = random.nextBoolean();
+        boolean cookingSuccess = random.nextDouble() < 0.75;
         if (cookingSuccess) {
             System.out.println("\n" + chosenMenu + " 만들기 성공~!\n");
             // 숙련도 랜덤값

@@ -2,6 +2,7 @@ package com.cooking_doraemon.run;
 
 import com.cooking_doraemon.aggregate.Ingredient;
 import com.cooking_doraemon.aggregate.User;
+import com.cooking_doraemon.repository.MartRepository;
 import com.cooking_doraemon.repository.RecipeRepository;
 import com.cooking_doraemon.repository.RefrigeratorRepository;
 import com.cooking_doraemon.service.*;
@@ -15,10 +16,11 @@ public class Application {
 
     private static final RecipeRepository recipeRepository = new RecipeRepository();
     private static final RefrigeratorRepository refrigeratorRepository = new RefrigeratorRepository(recipeRepository);
+    private static final MartRepository martRepository = new MartRepository();
 
-    private static final MartService martService = new MartService();
+    private static final MartService martService = new MartService(martRepository);
     private static final RefrigeratorService refrigeratorService = new RefrigeratorService(refrigeratorRepository);
-    private static final RecipeService recipeService = new RecipeService(recipeRepository);
+    private static final RecipeService recipeService = new RecipeService(recipeRepository, martRepository);
     private static final CookingService cookingService = new CookingService(refrigeratorRepository, recipeRepository, recipeService);
     private static final UserService userService = new UserService();
 
@@ -105,6 +107,7 @@ public class Application {
         String userName = scanner.nextLine();
         System.out.println("\n==================================\n");
         System.out.println(userName + " 안녕?");
+        System.out.println("\n==================================\n");
 
         return userName;
     }
